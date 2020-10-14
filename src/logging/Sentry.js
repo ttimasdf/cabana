@@ -2,6 +2,10 @@ import Raven from 'raven-js';
 
 function init() {
   if (process.env.NODE_ENV === 'production') {
+    if (!process.env.USE_SENTRY) {
+      console.log('Sentry.init: set env USE_SENTRY to enable Sentry');
+      return;
+    };
     const opts = {};
 
     if (typeof __webpack_hash__ !== 'undefined') { // eslint-disable-line camelcase
