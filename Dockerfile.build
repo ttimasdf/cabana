@@ -1,0 +1,13 @@
+# build: docker build . --force-rm -t cabana
+# Run: docker run -d -p 8080:8080 --name cabana cabana
+
+FROM node:lts as builder
+
+RUN mkdir -p /app
+WORKDIR /app/
+
+COPY package.json yarn.lock /app/
+RUN yarn
+
+COPY . /app/
+RUN yarn && yarn netlify-build
